@@ -1,7 +1,9 @@
 require 'sinatra'
+require 'sinatra/reloader'
 
-get '/' do
-	result = ""
+result = ""
+
+get '/' do	
 	shift = params["shift"].to_i
 	sentence = params["sentence"]
 
@@ -12,15 +14,15 @@ get '/' do
 		sentence.bytes.each do |x|
 			if x == 32 || !(x.between?(65, 90) || x.between?(97, 122))
 				result << x.chr
-			elsif x.between?(65, 90) && (x+int).between?(65, 90)
-				result << (x+int).chr
-			elsif x.between?(97, 122) && (x+int).between?(97, 122)
-				result << (x+int).chr
+			elsif x.between?(65, 90) && (x+shift).between?(65, 90)
+				result << (x+shift).chr
+			elsif x.between?(97, 122) && (x+shift).between?(97, 122)
+				result << (x+shift).chr
 			else
-				result << ((x+int)-26).chr
+				result << ((x+shift)-26).chr
 			end
 		end
 	end
-	
+
 	erb :index, :locals => {:result => result}
 end
