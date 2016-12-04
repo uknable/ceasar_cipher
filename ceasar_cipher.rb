@@ -1,9 +1,10 @@
 require 'sinatra'
 #require 'sinatra/reloader'
 
-result = ""
+
 
 get '/' do	
+	result = ""
 	shift = params["shift"].to_i
 	sentence = params["sentence"]
 
